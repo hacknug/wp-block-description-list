@@ -20,52 +20,52 @@ const ALLOWED_BLOCKS = [
 ];
 
 registerBlockType( 'lmt/description-list', {
-	title: __( 'Description list' ),
-	description: __( 'Create a description list.' ),
+	title: __( 'Description List' ),
+	description: __( 'Create a list of groups of terms and descriptions. Common uses for this element are to implement a glossary or to display metadata (a list of key-value pairs).' ),
 	icon: 'feedback',
 	category: 'common',
-	keywords: [ __( 'description list' ) ],
+	keywords: [ __( 'description list' ), __( 'term' ), __( 'definition' ) ],
 
-  edit: compose(
+	edit: compose(
 		withSelect( ( select, ownProps ) => {
-	  	const {
-	  		hasSelectedInnerBlock,
+			const {
+				hasSelectedInnerBlock,
 				getBlock,
-	  	} = select( 'core/editor' );
+			} = select( 'core/editor' );
 
-	  	// Get current block
+			// Get current block
 			const block = getBlock( ownProps.clientId );
 
-	    return {
-	    	isParentOfSelectedBlock: hasSelectedInnerBlock( ownProps.clientId, true ),
+			return {
+				isParentOfSelectedBlock: hasSelectedInnerBlock( ownProps.clientId, true ),
 				hasBlocks: block ? block.innerBlocks.length : false,
-	    };
-	  } ),
+			};
+		} ),
 
 		withDispatch( ( dispatch, ownProps ) => {
-	  	const {
+			const {
 				insertBlock,
-	  	} = dispatch( 'core/editor' );
+			} = dispatch( 'core/editor' );
 
-	    return {
-	    	// Function for inserting new rows
+			return {
+				// Function for inserting new rows
 				onAddRow( isTerm ) {
-		      // Create a new block
+					// Create a new block
 					const block = createBlock( 'lmt/description-list-item', {
 						isTerm: isTerm,
 					} );
 
 					insertBlock( block, undefined, ownProps.clientId );
 				},
-	    };
+			};
 		} )
 	)( ( { isSelected, isParentOfSelectedBlock, hasBlocks, onAddRow } ) => {
-    // Add block if no blocks already exist.
+		// Add block if no blocks already exist.
 		if ( ! hasBlocks ) {
 			onAddRow( true );
-    }
+		}
 
-    // Inserter buttons
+		// Inserter buttons
 		const inserters = ( isSelected || isParentOfSelectedBlock ) && (
 			<ButtonGroup>
 				<Button
@@ -79,21 +79,21 @@ registerBlockType( 'lmt/description-list', {
 					onClick={ () => onAddRow( false ) }
 				>{ __( 'Add Description' ) }</Button>
 			</ButtonGroup>
-    );
+		);
 
-    return (
-      <Fragment>
-        <InnerBlocks
-          allowedBlocks={ ALLOWED_BLOCKS }
-          templateLock="insert"
-        />
+		return (
+			<Fragment>
+				<InnerBlocks
+					allowedBlocks={ ALLOWED_BLOCKS }
+					templateLock="insert"
+				/>
 
-        { inserters }
-      </Fragment>
-    );
+				{ inserters }
+			</Fragment>
+		);
 	} ),
 
-  save() {
-    return <dl><InnerBlocks.Content /></dl>;
+	save() {
+		return <dl><InnerBlocks.Content /></dl>;
 	},
 } );
