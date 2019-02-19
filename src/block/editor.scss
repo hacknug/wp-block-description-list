@@ -1,53 +1,50 @@
 .DL {
+  &__dt {
+    padding-left: 1em;
+  }
 
-	&__dt {
-		padding-left: 1em;
-	}
+  &__dd {
+    padding: 0 3em 1.5em;
+  }
 
-	&__dd {
-		padding: 0 3em 1.5em;
-	}
+  &__inserters {
+    display: flex;
+    flex-flow: row wrap;
 
-	&__inserters {
-	  display: flex;
-	  flex-flow: row wrap;
+    &__btn {
+      appearance: none;
+      display: block;
+      margin: 0;
+      padding: 0;
 
-		&__btn {
-	    appearance: none;
-	    display: block;
-	    vertical-align: baseline;
-	    margin: 0;
-	    padding: 0;
+      border: 1px solid #e2e4e7;
+      border-radius: 0;
+      transition: none;
 
-	    border: 1px solid #e2e4e7;
-	    border-radius: 0;
-	    transition: none;
+      // font-family: $button-font-family;
+      // font-size: $button-font-size;
+      // font-weight: $button-font-weight;
+      -webkit-appearance: none; // sass-lint:disable-line no-vendor-prefixes
 
-	    // font-family: $button-font-family;
-	    // font-size: $button-font-size;
-	    // font-weight: $button-font-weight;
-	    -webkit-appearance: none; // sass-lint:disable-line no-vendor-prefixes
+      line-height: 1.3;
+      text-align: center;
+      cursor: pointer;
+      padding: 12px 0;
 
-	    line-height: 1.3;
-	    text-align: center;
-	    cursor: pointer;
-	    padding: 12px 0;
+      // Layout
+      flex: 0 0 auto;
+      min-height: 0;
+      min-width: 0;
+      width: 50%;
 
-			// Layout
-	    flex: 0 0 auto;
-	    min-height: 0;
-	    min-width: 0;
-	    width: 50%;
+      > svg {
+        vertical-align: middle;
+        margin-right: 6px;
+      }
 
-	    > svg {
-	    	vertical-align: middle;
-	    	margin-right: 6px;
-	    }
-
-	    &:hover {
-	    	border-color: #000;
-	    }
-		}
-
-	}
+      &:hover {
+        border-color: #000;
+      }
+    }
+  }
 }

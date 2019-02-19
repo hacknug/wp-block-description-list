@@ -16,7 +16,7 @@ import './list-item';
 
 // Constants
 const ALLOWED_BLOCKS = [
-	'lmt/description-list-item'
+	'lmt/description-list-item',
 ];
 
 registerBlockType( 'lmt/description-list', {
@@ -27,58 +27,57 @@ registerBlockType( 'lmt/description-list', {
 	keywords: [ __( 'description list' ) ],
 
   edit: compose(
-	  withSelect( (select, ownProps) => {
+		withSelect( ( select, ownProps ) => {
 	  	const {
 	  		hasSelectedInnerBlock,
-	  		getBlock
+				getBlock,
 	  	} = select( 'core/editor' );
 
 	  	// Get current block
-	  	const block = getBlock(ownProps.clientId);
+			const block = getBlock( ownProps.clientId );
 
 	    return {
 	    	isParentOfSelectedBlock: hasSelectedInnerBlock( ownProps.clientId, true ),
-	    	hasBlocks: block ? block.innerBlocks.length : false
+				hasBlocks: block ? block.innerBlocks.length : false,
 	    };
 	  } ),
 
-		withDispatch( (dispatch, ownProps) => {
+		withDispatch( ( dispatch, ownProps ) => {
 	  	const {
-	  		insertBlock
+				insertBlock,
 	  	} = dispatch( 'core/editor' );
 
 	    return {
 	    	// Function for inserting new rows
-	    	onAddRow(isTerm) {
+				onAddRow( isTerm ) {
 		      // Create a new block
-		      const block = createBlock('lmt/description-list-item', {
-		      	isTerm: isTerm
-		      });
+					const block = createBlock( 'lmt/description-list-item', {
+						isTerm: isTerm,
+					} );
 
-		      insertBlock(block, undefined, ownProps.clientId);
-	    	}
+					insertBlock( block, undefined, ownProps.clientId );
+				},
 	    };
-		})
-  )( ({ clientId, isSelected, isParentOfSelectedBlock, hasBlocks, onAddRow }) => {
+		} )
+	)( ( { isSelected, isParentOfSelectedBlock, hasBlocks, onAddRow } ) => {
     // Add block if no blocks already exist.
-    if (! hasBlocks ) {
-      onAddRow(true);
+		if ( ! hasBlocks ) {
+			onAddRow( true );
     }
 
     // Inserter buttons
-    const inserters = (isSelected || isParentOfSelectedBlock) && (
+		const inserters = ( isSelected || isParentOfSelectedBlock ) && (
 			<ButtonGroup>
 				<Button
 					isDefault
 					isLarge
-					onClick={ () => { onAddRow(true) } }
-				>{ __( 'Add term' ) }</Button>
-
+					onClick={ () => onAddRow( true ) }
+				>{ __( 'Add Term' ) }</Button>
 				<Button
 					isDefault
 					isLarge
-					onClick={ () => { onAddRow(false) } }
-				>{ __( 'Add description' ) }</Button>
+					onClick={ () => onAddRow( false ) }
+				>{ __( 'Add Description' ) }</Button>
 			</ButtonGroup>
     );
 
@@ -92,9 +91,9 @@ registerBlockType( 'lmt/description-list', {
         { inserters }
       </Fragment>
     );
-  }),
+	} ),
 
   save() {
     return <dl><InnerBlocks.Content /></dl>;
-  }
+	},
 } );
