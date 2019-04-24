@@ -37,7 +37,7 @@ export class DescriptionListItemEdit extends Component {
 
 	render() {
 		const { onDeleteSelf, attributes } = this.props;
-		const { isTerm } = attributes;
+		const { className, isTerm } = attributes;
 
 		// Set some variables
 		const tagName = isTerm ? 'dt' : 'dd';
@@ -70,7 +70,7 @@ export class DescriptionListItemEdit extends Component {
 						/>
 					</Toolbar>
 				</BlockControls>
-				<div className={ `DL__${ tagName }` }>
+				<div className={ `DL__${ tagName } ${ className }` }>
 					<InnerBlocks
 						allowedBlocks={ this.getAllowedBlocks() }
 						templateLock={ false }
